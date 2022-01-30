@@ -31,7 +31,17 @@ namespace BancoGrupoMatheusAPI.Controllers
             return Ok(_userService.CriarConta(conta, novaConta.Pin, novaConta.ConfirmPin));
         }
 
-        [HttpPost]
+        [HttpPut]
+        [Route("Atualizar conta")]
+        public void AtualizarConta([FromBody] Contas conta, string Pin = null)
+        {
+            if (!ModelState.IsValid) BadRequest(conta);
+            //map
+            var contas = _mapper.Map<Contas>(conta);
+            _userService.AtualizarConta(contas, Pin);
+        }
+
+        [HttpDelete]
         [Route("Deletar Conta")]
         public IActionResult DeletarConta(int Id)
         {
@@ -60,6 +70,6 @@ namespace BancoGrupoMatheusAPI.Controllers
             var authResult = _userService.Autenticacao(model.NumeroConta, model.Pin);
             if (authResult == null) return Unauthorized("Credenciais Invalidas");
             return Ok(authResult);
-        } 
+        }
     }
 }

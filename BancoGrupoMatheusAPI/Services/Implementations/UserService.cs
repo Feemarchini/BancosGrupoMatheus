@@ -49,6 +49,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             response.ResponseMessage = "Autenticado";
             response.Data = Hoje;
 
+            _dbContext.Response.Add(response);
+            _dbContext.SaveChanges();
+
             //auth successful
             return conta;
         }
@@ -90,6 +93,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             response.ResponseMessage = "Conta criada com sucesso";
             response.Data = conta.DataDeCriacao;
 
+            _dbContext.Response.Add(response);
+            _dbContext.SaveChanges();
+
             return conta;
 
         }
@@ -121,6 +127,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             response.ResponseMessage = "Conta deletada com sucesso!";
             response.Data = Hoje;
 
+            _dbContext.Response.Add(response);
+            _dbContext.SaveChanges();
+
             return response;
         }
 
@@ -133,6 +142,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             response.ResponseCode = "00";
             response.ResponseMessage = "Conta deletada com sucesso!";
             response.Data = Hoje;
+
+            _dbContext.Response.Add(response);
+            _dbContext.SaveChanges();
 
         }
 
@@ -169,6 +181,15 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             }
 
             _dbContext.Contas.Update(contaToBeUpdated);
+            _dbContext.SaveChanges();
+
+            DateTime Hoje = DateTime.Today.AddDays(0);
+            Response response = new Response();
+            response.ResponseCode = "00";
+            response.ResponseMessage = "Conta atualizada com sucesso!";
+            response.Data = Hoje;
+
+            _dbContext.Response.Add(response);
             _dbContext.SaveChanges();
         }
 

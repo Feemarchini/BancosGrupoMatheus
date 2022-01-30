@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BancoGrupoMatheusAPI",
-    "\\BancoGrupoMatheusAPI\\Models"
+    "\\BancoGrupoMatheusAPI\\Services",
+    "\\BancoGrupoMatheusAPI\\Services\\Implementations"
   ],
-  "SelectedNode": "\\BancoGrupoMatheusAPI\\Models\\RegistrarNovaConta.cs",
+  "SelectedNode": "\\BancoGrupoMatheusAPI.sln",
   "PreviewInSolutionExplorer": false
 }
