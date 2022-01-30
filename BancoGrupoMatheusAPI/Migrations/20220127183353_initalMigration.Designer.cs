@@ -82,25 +82,25 @@ namespace BancoGrupoMatheusAPI.Migrations
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("DataTransferencia")
+                    b.Property<DateTime>("DataTransacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DestinoTransferencia")
+                    b.Property<string>("DestinoTransacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ObservacaoTransferencia")
+                    b.Property<string>("ObservacaoTransacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SaldoTransferencia")
+                    b.Property<string>("SaldoTransacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StatusTransferencia")
+                    b.Property<int>("StatusTransacao")
                         .HasColumnType("int");
 
-                    b.Property<int>("TipoTransferencia")
+                    b.Property<int>("TipoTransacao")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReferenciaTransferencia")
+                    b.Property<string>("ReferenciaTransacao")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

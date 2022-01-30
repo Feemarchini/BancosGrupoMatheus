@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BancoGrupoMatheusAPI.Services.Interfaces
 {
-    public interface IServiceTransferencia
+    public interface IServiceTransacao
     {
-        Response Depositar(string NumeroConta, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransferencia);
+        Response Depositar(string NumeroConta, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransacao);
         Response Saque(string NumeroConta, decimal Valor, string TransactionPin);
-        Response FazerTransferencia(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransferencia);
+        Response FazerTransacao(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransacao);
         Response CompraDebito(string NumeroConta, decimal Valor, string TransactionPin);
-        Response CompraCredito(string NumeroConta, decimal Valor, string PinTransferencia, string Fatura);
+        Response CompraCredito(string NumeroConta, decimal Valor, string PinTransacao, string Fatura);
 
     }
 }

@@ -32,7 +32,7 @@ namespace BancoGrupoMatheusAPI
 
             services.AddDbContext<DBContextBancoGrupoMatheus>(options => options.UseSqlServer(Configuration.GetConnectionString("NetCoreOpenBankngConnection")));
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IServiceTransferencia, TransacaoService>();
+            services.AddScoped<IServiceTransacao, TransacaoService>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddSwaggerGen(c =>
             {

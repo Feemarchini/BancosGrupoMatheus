@@ -15,7 +15,7 @@ namespace BancoGrupoMatheusAPI.Profiles
             CreateMap<RegistrarNovaConta, Contas>();
             CreateMap<UpdateContas, Contas>();
             CreateMap<Contas, GetContasModel>();
-            CreateMap<RequestTransferenciaDto, Transacoes>();
+            CreateMap<RequestTransacaoDto, Transacoes>();
         }
     }
 }

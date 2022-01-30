@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BancoGrupoMatheusAPI.Services.Implementations
 {
-    public class TransacaoService : IServiceTransferencia
+    public class TransacaoService : IServiceTransacao
     {
         private DBContextBancoGrupoMatheus _dbContext;
 
@@ -34,7 +34,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
         }
 
-        public Response Depositar(string NumeroConta, decimal Valor, string PinTransaction, string OrigemTransferencia, string DestinoTransferencia)
+        public Response Depositar(string NumeroConta, decimal Valor, string PinTransaction, string OrigemTransacao, string DestinoTransacao)
         {
             Response response = new Response();
             Contas conta; //our Bank Settlement conta
@@ -67,18 +67,18 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 if ((_dbContext.Entry(conta).State == Microsoft.EntityFrameworkCore.EntityState.Modified) && (_dbContext.Entry(contaDestino).State == Microsoft.EntityFrameworkCore.EntityState.Modified))
                 {
                     //sso there was an update
-                    transacoes.StatusTransferencia = TranStatus.TransferenciaEfetuadaComSucesso;
+                    transacoes.StatusTransacao = TranStatus.TransacaoEfetuadaComSucesso;
                     response.ResponseCode = "00";
-                    response.ResponseMessage = "Transferencia realizada com sucesso!";
-                    response.Data = transacoes.DataTransferencia;
+                    response.ResponseMessage = "Transacao realizada com sucesso!";
+                    response.Data = transacoes.DataTransacao;
 
                 }
                 else
                 {
-                    transacoes.StatusTransferencia = TranStatus.FalhaNaTransferencia;
+                    transacoes.StatusTransacao = TranStatus.FalhaNaTransacao;
                     response.ResponseCode = "00";
-                    response.ResponseMessage = "Transferencia falhou!";
-                    response.Data = transacoes.DataTransferencia;
+                    response.ResponseMessage = "Transacao falhou!";
+                    response.Data = transacoes.DataTransacao;
                 }
             }
             catch (Exception ex)
@@ -87,19 +87,19 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 _logger.LogError($"ERROR OCCURRED => MESSAGE: {ex.Message}");
             }
 
-            transacoes.DataTransferencia = DateTime.Now;
-            transacoes.TipoDeTransferencia = TranType.Deposito;
-            transacoes.ValorTransferencia = Valor.ToString();
+            transacoes.DataTransacao = DateTime.Now;
+            transacoes.TipoDeTransacao = TranType.Deposito;
+            transacoes.ValorTransacao = Valor.ToString();
             transacoes.IsSuccessful = "sucesso";
-            transacoes.SaldoTransferencia = contaPrincipalSelecionada;
-            transacoes.DestinoTransferencia = NumeroConta;
-            transacoes.OrigemTransferencia = OrigemTransferencia;
-            transacoes.DestinoTransferencia = DestinoTransferencia;
-            transacoes.ObservacaoTransferencia = $"Transacão efetuada da sua conta {JsonConvert.SerializeObject(transacoes.SaldoTransferencia)} para a conta=> " +
-                $"{JsonConvert.SerializeObject(transacoes.DestinoTransferencia)} ON " +
-                $"{transacoes.DataTransferencia} TipoDeTransferencia =>  " +
-                $"{transacoes.TipoDeTransferencia} StatusTransferencia => " +
-                $"{transacoes.StatusTransferencia}";
+            transacoes.SaldoTransacao = contaPrincipalSelecionada;
+            transacoes.DestinoTransacao = NumeroConta;
+            transacoes.OrigemTransacao = OrigemTransacao;
+            transacoes.DestinoTransacao = DestinoTransacao;
+            transacoes.ObservacaoTransacao = $"Transacão efetuada da sua conta {JsonConvert.SerializeObject(transacoes.SaldoTransacao)} para a conta=> " +
+                $"{JsonConvert.SerializeObject(transacoes.DestinoTransacao)} ON " +
+                $"{transacoes.DataTransacao} TipoDeTransacao =>  " +
+                $"{transacoes.TipoDeTransacao} StatusTransacao => " +
+                $"{transacoes.StatusTransacao}";
 
             _dbContext.Transacoes.Add(transacoes);
             _dbContext.SaveChanges();
@@ -109,7 +109,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
         }
 
-        public Response FazerTransferencia(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransferencia)
+        public Response FazerTransacao(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransacao)
         {
             //3 contas or 2 are involved
 
@@ -117,7 +117,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             Response response = new Response();
             Contas saldoConta; //our current Autenticacaod customer
             Contas contaDestino; //target conta where money is being sent to...
-            Transacoes Transferencia = new Transacoes();
+            Transacoes Transacao = new Transacoes();
 
             //let's Autenticacao first
             var AutenticacaoUser = _userService.Autenticacao(ContaOrigem, TransactionPin);
@@ -126,7 +126,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
                 throw new ApplicationException("Credenciais inválidas");
             }
-            //user Autenticacaod, then llet's process funds Transferencia;
+            //user Autenticacaod, then llet's process funds Transacao;
             try
             {
                 saldoConta = _userService.BuscarNumeroConta(ContaOrigem);
@@ -151,18 +151,18 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 if ((_dbContext.Entry(saldoConta).State == Microsoft.EntityFrameworkCore.EntityState.Modified) && (_dbContext.Entry(contaDestino).State == Microsoft.EntityFrameworkCore.EntityState.Modified))
                 {
                     //so there was an update in the context State
-                    Transferencia.StatusTransferencia = TranStatus.TransferenciaEfetuadaComSucesso;
+                    Transacao.StatusTransacao = TranStatus.TransacaoEfetuadaComSucesso;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Transferência realizada com sucesso!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
 
                 }
                 else
                 {
-                    Transferencia.StatusTransferencia = TranStatus.FalhaNaTransferencia;
+                    Transacao.StatusTransacao = TranStatus.FalhaNaTransacao;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Transferência não realizada!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
                 }
             }
             catch (Exception ex)
@@ -171,18 +171,18 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 _logger.LogError($"AN ERROR OCCURRED => MESSAGE: {ex.Message}");
             }
 
-            Transferencia.DataTransferencia = DateTime.Now;
-            Transferencia.TipoDeTransferencia = TranType.Transferencia;
-            Transferencia.ValorTransferencia = Valor.ToString();
-            Transferencia.SaldoTransferencia = contaPrincipalSelecionada;
-            Transferencia.DestinoTransferencia = saldoContaDestino;
-            Transferencia.ObservacaoTransferencia = $"NEW Transaction FROM SOURCE {JsonConvert.SerializeObject(Transferencia.SaldoTransferencia)} " +
-                $"TO DESTINATION => {JsonConvert.SerializeObject(Transferencia.DestinoTransferencia)} ON " +
-                $"{Transferencia.DataTransferencia} TipoTransferencia =>  " +
-                $"{Transferencia.TipoDeTransferencia} StatusTransferencia => " +
-                $"{Transferencia.StatusTransferencia}";
+            Transacao.DataTransacao = DateTime.Now;
+            Transacao.TipoDeTransacao = TranType.Transacao;
+            Transacao.ValorTransacao = Valor.ToString();
+            Transacao.SaldoTransacao = contaPrincipalSelecionada;
+            Transacao.DestinoTransacao = saldoContaDestino;
+            Transacao.ObservacaoTransacao = $"NEW Transaction FROM SOURCE {JsonConvert.SerializeObject(Transacao.SaldoTransacao)} " +
+                $"TO DESTINATION => {JsonConvert.SerializeObject(Transacao.DestinoTransacao)} ON " +
+                $"{Transacao.DataTransacao} TipoTransacao =>  " +
+                $"{Transacao.TipoDeTransacao} StatusTransacao => " +
+                $"{Transacao.StatusTransacao}";
 
-            _dbContext.Transacoes.Add(Transferencia);
+            _dbContext.Transacoes.Add(Transacao);
             _dbContext.SaveChanges();
 
 
@@ -190,13 +190,13 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
         }
 
-        public Response Saque(string NumeroConta, decimal Valor, string PinTransferencia)
+        public Response Saque(string NumeroConta, decimal Valor, string PinTransacao)
         {
             Response response = new Response();
             Contas saldoConta; //individual
-            Transacoes Transferencia = new Transacoes();
+            Transacoes Transacao = new Transacoes();
 
-            var autenticacaoUsuario = _userService.Autenticacao(NumeroConta, PinTransferencia);
+            var autenticacaoUsuario = _userService.Autenticacao(NumeroConta, PinTransacao);
             if (autenticacaoUsuario == null)
             {
                 throw new ApplicationException("Credenciais Inválidas");
@@ -221,18 +221,18 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 if ((_dbContext.Entry(saldoConta).State == Microsoft.EntityFrameworkCore.EntityState.Modified))
                 {
                     //so there was an update in the context State
-                    Transferencia.StatusTransferencia = TranStatus.TransferenciaEfetuadaComSucesso;
+                    Transacao.StatusTransacao = TranStatus.TransacaoEfetuadaComSucesso;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Saque efetuado com sucesso!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
 
                 }
                 else
                 {
-                    Transferencia.StatusTransferencia = TranStatus.FalhaNaTransferencia;
+                    Transacao.StatusTransacao = TranStatus.FalhaNaTransacao;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Saque não efetuado!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
                 }
             }
             catch (Exception ex)
@@ -241,30 +241,30 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 _logger.LogError($"AN ERROR OCCURRED => MESSAGE: {ex.Message}");
             }
 
-            Transferencia.DataTransferencia = DateTime.Now;
-            Transferencia.TipoDeTransferencia = TranType.Saque;
-            Transferencia.ValorTransferencia = Valor.ToString();
-            Transferencia.IsSuccessful = "sucesso";
-            Transferencia.SaldoTransferencia = contaPrincipalSelecionada;
-            Transferencia.ObservacaoTransferencia =
-                $"{Transferencia.DataTransferencia} TipoTransferencia =>  " +
-                $"{Transferencia.TipoDeTransferencia} StautsTransferencia => " +
-                $"{Transferencia.StatusTransferencia}";
+            Transacao.DataTransacao = DateTime.Now;
+            Transacao.TipoDeTransacao = TranType.Saque;
+            Transacao.ValorTransacao = Valor.ToString();
+            Transacao.IsSuccessful = "sucesso";
+            Transacao.SaldoTransacao = contaPrincipalSelecionada;
+            Transacao.ObservacaoTransacao =
+                $"{Transacao.DataTransacao} TipoTransacao =>  " +
+                $"{Transacao.TipoDeTransacao} StautsTransacao => " +
+                $"{Transacao.StatusTransacao}";
 
-            _dbContext.Transacoes.Add(Transferencia);
+            _dbContext.Transacoes.Add(Transacao);
             _dbContext.SaveChanges();
 
 
             return response;
         }
 
-        public Response CompraDebito(string NumeroConta, decimal Valor, string PinTransferencia)
+        public Response CompraDebito(string NumeroConta, decimal Valor, string PinTransacao)
         {
             Response response = new Response();
             Contas saldoConta; //individual
-            Transacoes Transferencia = new Transacoes();
+            Transacoes Transacao = new Transacoes();
 
-            var autenticacaoUsuario = _userService.Autenticacao(NumeroConta, PinTransferencia);
+            var autenticacaoUsuario = _userService.Autenticacao(NumeroConta, PinTransacao);
             if (autenticacaoUsuario == null)
             {
                 throw new ApplicationException("Credenciais Inválidas");
@@ -289,10 +289,10 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 if ((_dbContext.Entry(saldoConta).State == Microsoft.EntityFrameworkCore.EntityState.Modified))
                 {
                     //so there was an update in the context State
-                    Transferencia.StatusTransferencia = TranStatus.TransferenciaEfetuadaComSucesso;
+                    Transacao.StatusTransacao = TranStatus.TransacaoEfetuadaComSucesso;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Compra efetuada com sucesso!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
 
                     _dbContext.Response.Add(response);
                     _dbContext.SaveChanges();
@@ -300,10 +300,10 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 }
                 else
                 {
-                    Transferencia.StatusTransferencia = TranStatus.FalhaNaTransferencia;
+                    Transacao.StatusTransacao = TranStatus.FalhaNaTransacao;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Compra não efetuada!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
 
                     _dbContext.Response.Add(response);
                     _dbContext.SaveChanges();
@@ -315,29 +315,29 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 _logger.LogError($"AN ERROR OCCURRED => MESSAGE: {ex.Message}");
             }
 
-            Transferencia.DataTransferencia = DateTime.Now;
-            Transferencia.TipoDeTransferencia = TranType.Debito;
-            Transferencia.ValorTransferencia = Valor.ToString();
-            Transferencia.IsSuccessful = "sucesso";
-            Transferencia.SaldoTransferencia = contaPrincipalSelecionada;
-            Transferencia.ObservacaoTransferencia =
-                $"{Transferencia.DataTransferencia} TipoTransferencia =>  " +
-                $"{Transferencia.TipoDeTransferencia} StautsTransferencia => " +
-                $"{Transferencia.StatusTransferencia}";
+            Transacao.DataTransacao = DateTime.Now;
+            Transacao.TipoDeTransacao = TranType.Debito;
+            Transacao.ValorTransacao = Valor.ToString();
+            Transacao.IsSuccessful = "sucesso";
+            Transacao.SaldoTransacao = contaPrincipalSelecionada;
+            Transacao.ObservacaoTransacao =
+                $"{Transacao.DataTransacao} TipoTransacao =>  " +
+                $"{Transacao.TipoDeTransacao} StautsTransacao => " +
+                $"{Transacao.StatusTransacao}";
 
-            _dbContext.Transacoes.Add(Transferencia);
+            _dbContext.Transacoes.Add(Transacao);
             _dbContext.SaveChanges();
 
             return response;
         }
 
-        public Response CompraCredito(string NumeroConta, decimal Valor, string PinTransferencia, string Fatura)
+        public Response CompraCredito(string NumeroConta, decimal Valor, string PinTransacao, string Fatura)
         {
             Response response = new Response();
             Contas faturaConta; //individual
-            Transacoes Transferencia = new Transacoes();
+            Transacoes Transacao = new Transacoes();
 
-            var autenticacaoUsuario = _userService.Autenticacao(NumeroConta, PinTransferencia);
+            var autenticacaoUsuario = _userService.Autenticacao(NumeroConta, PinTransacao);
             if (autenticacaoUsuario == null)
             {
                 throw new ApplicationException("Credenciais Inválidas");
@@ -357,10 +357,10 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 if ((_dbContext.Entry(faturaConta).State == Microsoft.EntityFrameworkCore.EntityState.Modified))
                 {
                     //so there was an update in the context State
-                    Transferencia.StatusTransferencia = TranStatus.TransferenciaEfetuadaComSucesso;
+                    Transacao.StatusTransacao = TranStatus.TransacaoEfetuadaComSucesso;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Compra no crédito efetuada com sucesso!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
 
                     _dbContext.Response.Add(response);
                     _dbContext.SaveChanges();
@@ -368,10 +368,10 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 }
                 else
                 {
-                    Transferencia.StatusTransferencia = TranStatus.FalhaNaTransferencia;
+                    Transacao.StatusTransacao = TranStatus.FalhaNaTransacao;
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Compra no crédito não efetuada!";
-                    response.Data = Transferencia.DataTransferencia;
+                    response.Data = Transacao.DataTransacao;
 
                     _dbContext.Response.Add(response);
                     _dbContext.SaveChanges();
@@ -385,18 +385,18 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
             var faturaInicial = _dbContext.Contas.Where(x => x.NumeroConta == NumeroConta).SingleOrDefault();
 
-            Transferencia.DataTransferencia = DateTime.Now;
-            Transferencia.TipoDeTransferencia = TranType.Debito;
-            Transferencia.ValorTransferencia = Valor.ToString();
-            Transferencia.IsSuccessful = "sucesso";
-            Transferencia.Fatura = faturaInicial.Fatura;
-            Transferencia.TotalFatura = totalFatura;
-            Transferencia.ObservacaoTransferencia =
-                $"{Transferencia.DataTransferencia} TipoTransferencia =>  " +
-                $"{Transferencia.TipoDeTransferencia} StautsTransferencia => " +
-                $"{Transferencia.StatusTransferencia}";
+            Transacao.DataTransacao = DateTime.Now;
+            Transacao.TipoDeTransacao = TranType.Debito;
+            Transacao.ValorTransacao = Valor.ToString();
+            Transacao.IsSuccessful = "sucesso";
+            Transacao.Fatura = faturaInicial.Fatura;
+            Transacao.TotalFatura = totalFatura;
+            Transacao.ObservacaoTransacao =
+                $"{Transacao.DataTransacao} TipoTransacao =>  " +
+                $"{Transacao.TipoDeTransacao} StautsTransacao => " +
+                $"{Transacao.StatusTransacao}";
 
-            _dbContext.Transacoes.Add(Transferencia);
+            _dbContext.Transacoes.Add(Transacao);
             _dbContext.SaveChanges();
 
             return response;

@@ -13,34 +13,34 @@ namespace BancoGrupoMatheusAPI.Models
         [Key]
         public int Id { get; set; }
 
-        public int TransferenciaUniqueId { get; set; }
+        public int TransacaoUniqueId { get; set; }
 
-        public DateTime MesTransferencia { get; set; }
+        public DateTime MesTransacao { get; set; }
 
-        public TranStatus StatusTransferencia { get; set; }
+        public TranStatus StatusTransacao { get; set; }
 
         public string IsSuccessful { get; set; }
 
-        public string OrigemTransferencia { get; set; }
+        public string OrigemTransacao { get; set; }
 
-        public string DestinoTransferencia { get; set; }
+        public string DestinoTransacao { get; set; }
 
-        public string ObservacaoTransferencia { get; set; }
+        public string ObservacaoTransacao { get; set; }
 
-        public TranType TipoDeTransferencia { get; set; }
+        public TranType TipoDeTransacao { get; set; }
 
-        public DateTime DataTransferencia { get; set; }
+        public DateTime DataTransacao { get; set; }
 
-        public string ValorTransferencia { get; set; }
+        public string ValorTransacao { get; set; }
 
-        public string SaldoTransferencia { get; set; }
+        public string SaldoTransacao { get; set; }
         public string Fatura { get; set; }
         public string TotalFatura { get; set; }
 
 
         public Transacoes()
         {
-            ObservacaoTransferencia = $"{Guid.NewGuid().ToString().Replace("-", "").Substring(1, 17)}";
+            ObservacaoTransacao = $"{Guid.NewGuid().ToString().Replace("-", "").Substring(1, 17)}";
         }
 
 
@@ -48,8 +48,8 @@ namespace BancoGrupoMatheusAPI.Models
 
     public enum TranStatus
     {
-        FalhaNaTransferencia,
-        TransferenciaEfetuadaComSucesso,
+        FalhaNaTransacao,
+        TransacaoEfetuadaComSucesso,
         Erro
     }
 
@@ -57,7 +57,7 @@ namespace BancoGrupoMatheusAPI.Models
     {
         Deposito,
         Saque,
-        Transferencia,
+        Transacao,
         Debito,
         Credito
     }

@@ -38,14 +38,14 @@ namespace BancoGrupoMatheusAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ReferenciaTransferencia = table.Column<string>(nullable: true),
-                    ValorTransferencia = table.Column<decimal>(nullable: false),
-                    StatusTransferencia = table.Column<int>(nullable: false),
-                    SaldoAposTransferencia = table.Column<string>(nullable: true),
-                    ContaDestinoTransferencia = table.Column<string>(nullable: true),
-                    ObservacaoTransferencia = table.Column<string>(nullable: true),
-                    TipoTransferencia = table.Column<int>(nullable: false),
-                    DataTransferencia = table.Column<DateTime>(nullable: false)
+                    ReferenciaTransacao = table.Column<string>(nullable: true),
+                    ValorTransacao = table.Column<decimal>(nullable: false),
+                    StatusTransacao = table.Column<int>(nullable: false),
+                    SaldoAposTransacao = table.Column<string>(nullable: true),
+                    ContaDestinoTransacao = table.Column<string>(nullable: true),
+                    ObservacaoTransacao = table.Column<string>(nullable: true),
+                    TipoTransacao = table.Column<int>(nullable: false),
+                    DataTransacao = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -5,30 +5,30 @@ using System.Threading.Tasks;
 
 namespace BancoGrupoMatheusAPI.Models
 {
-    public class RequestTransferenciaDto
+    public class RequestTransacaoDto
     {
         public int Id { get; set; }
 
-        public int TransferenciaUniqueId { get; set; }
+        public int TransacaoUniqueId { get; set; }
 
-        public DateTime MesTransferencia { get; set; }
+        public DateTime MesTransacao { get; set; }
 
-        public TranStatus StatusTransferencia { get; set; }
+        public TranStatus StatusTransacao { get; set; }
 
         public string IsSuccessful { get; set; }
 
-        public string OrigemTransferencia { get; set; }
+        public string OrigemTransacao { get; set; }
 
-        public string DestinoTransferencia { get; set; }
+        public string DestinoTransacao { get; set; }
 
-        public string ObservacaoTransferencia { get; set; }
+        public string ObservacaoTransacao { get; set; }
 
-        public TranType TipoDeTransferencia { get; set; }
+        public TranType TipoDeTransacao { get; set; }
 
-        public DateTime DataTransferencia { get; set; }
+        public DateTime DataTransacao { get; set; }
 
-        public string ValorTransferencia { get; set; }
+        public string ValorTransacao { get; set; }
 
-        public string SaldoTransferencia { get; set; }
+        public string SaldoTransacao { get; set; }
     }
 }
