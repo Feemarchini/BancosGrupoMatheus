@@ -62,14 +62,14 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             //is pin eequal to confirmmpin
             if (!Pin.Equals(ConfirmPin)) throw new ApplicationException("Pins não confere.");
 
-            if(conta.TipoDeConta.Contains("Corrente") || conta.TipoDeConta.Contains("Conta Corrente"))
+            if(conta.TipoDeConta.Contains("Corrente") || conta.TipoDeConta.Contains("Conta Corrente") || conta.TipoDeConta.Contains("string") || conta.TipoDeConta.Contains("String"))
             {
                 if(conta.CPF == null)
                 throw new ApplicationException("O campo CPF deve ser obrigatório");
             }
 
             if (conta.TipoDeConta.Contains("Juridica") || conta.TipoDeConta.Contains("Pessoa Juridica") || conta.TipoDeConta.Contains("Jurídica") || conta.TipoDeConta.Contains("Pessoa Jurídica") ||
-                conta.TipoDeConta.Contains("Juridíca") || conta.TipoDeConta.Contains("Pessoa Juridíca"))
+                conta.TipoDeConta.Contains("Juridíca") || conta.TipoDeConta.Contains("Pessoa Juridíca") || conta.TipoDeConta.Contains("string") || conta.TipoDeConta.Contains("String"))
             {
                 if (conta.CNPJ == null)
                     throw new ApplicationException("O campo CNPJ deve ser obrigatório");

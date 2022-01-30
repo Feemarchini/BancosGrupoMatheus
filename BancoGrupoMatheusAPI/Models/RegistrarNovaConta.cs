@@ -9,7 +9,6 @@ namespace BancoGrupoMatheusAPI.Models
     public class RegistrarNovaConta
     {
         
-        public int Id { get; set; }
         public string PrimeiroNome { get; set; }
         public string Sobrenome { get; set; }
         public string NumeroDeTelefone { get; set; }

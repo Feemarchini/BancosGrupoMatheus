@@ -34,7 +34,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
         }
 
-        public Response Depositar(int id, string NumeroConta, decimal Valor, string PinTransaction, string OrigemTransferencia, string DestinoTransferencia)
+        public Response Depositar(string NumeroConta, decimal Valor, string PinTransaction, string OrigemTransferencia, string DestinoTransferencia)
         {
             Response response = new Response();
             Contas conta; //our Bank Settlement conta
@@ -87,7 +87,6 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 _logger.LogError($"ERROR OCCURRED => MESSAGE: {ex.Message}");
             }
 
-            transacoes.Id = id;
             transacoes.DataTransferencia = DateTime.Now;
             transacoes.TipoDeTransferencia = TranType.Deposito;
             transacoes.ValorTransferencia = Valor.ToString();
@@ -110,7 +109,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
         }
 
-        public Response FazerTransferencia(int id, string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransferencia)
+        public Response FazerTransferencia(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransferencia)
         {
             //3 contas or 2 are involved
 
@@ -191,7 +190,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
         }
 
-        public Response Saque(int id, string NumeroConta, decimal Valor, string PinTransferencia)
+        public Response Saque(string NumeroConta, decimal Valor, string PinTransferencia)
         {
             Response response = new Response();
             Contas saldoConta; //individual
@@ -242,7 +241,6 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 _logger.LogError($"AN ERROR OCCURRED => MESSAGE: {ex.Message}");
             }
 
-            Transferencia.Id = id;
             Transferencia.DataTransferencia = DateTime.Now;
             Transferencia.TipoDeTransferencia = TranType.Saque;
             Transferencia.ValorTransferencia = Valor.ToString();
@@ -260,7 +258,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             return response;
         }
 
-        public Response CompraDebito(int id, string NumeroConta, decimal Valor, string PinTransferencia)
+        public Response CompraDebito(string NumeroConta, decimal Valor, string PinTransferencia)
         {
             Response response = new Response();
             Contas saldoConta; //individual
@@ -317,7 +315,6 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 _logger.LogError($"AN ERROR OCCURRED => MESSAGE: {ex.Message}");
             }
 
-            Transferencia.Id = id;
             Transferencia.DataTransferencia = DateTime.Now;
             Transferencia.TipoDeTransferencia = TranType.Debito;
             Transferencia.ValorTransferencia = Valor.ToString();
@@ -334,7 +331,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             return response;
         }
 
-        public Response CompraCredito(int id, string NumeroConta, decimal Valor, string PinTransferencia, string Fatura)
+        public Response CompraCredito(string NumeroConta, decimal Valor, string PinTransferencia, string Fatura)
         {
             Response response = new Response();
             Contas faturaConta; //individual
@@ -388,7 +385,6 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
             var faturaInicial = _dbContext.Contas.Where(x => x.NumeroConta == NumeroConta).SingleOrDefault();
 
-            Transferencia.Id = id;
             Transferencia.DataTransferencia = DateTime.Now;
             Transferencia.TipoDeTransferencia = TranType.Debito;
             Transferencia.ValorTransferencia = Valor.ToString();
