@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "c23dd820-cebd-40ab-8485-192bac85a794": {
+      "ProjectGuid": "c23dd820-cebd-40ab-8485-192bac85a794",
+      "DisplayName": "NetCoreOpenBankingAPI",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
