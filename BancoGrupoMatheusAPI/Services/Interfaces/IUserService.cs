@@ -11,7 +11,7 @@ namespace BancoGrupoMatheusAPI.Services.Interfaces
         Contas Autenticacao(string NumeroConta, string Pin);
         IEnumerable<Contas> BuscarTodasAsContas();
         Contas CriarConta(Contas conta, string Pin, string ConfirmPin);
-        void AtualizarConta(Contas conta, string Pin = null);
+        Contas AtualizarConta(AtualizarContas conta, string Pin = null);
         Response DeletarConta(int Id);
         Contas BuscarNumeroConta(string NumeroConta);
     }

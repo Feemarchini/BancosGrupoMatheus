@@ -13,7 +13,7 @@ namespace BancoGrupoMatheusAPI.Profiles
         public AutomapperProfile()
         {
             CreateMap<RegistrarNovaConta, Contas>();
-            CreateMap<UpdateContas, Contas>();
+            CreateMap<AtualizarContas, Contas>();
             CreateMap<Contas, GetContasModel>();
             CreateMap<RequestTransacaoDto, Transacoes>();
         }

@@ -33,12 +33,12 @@ namespace BancoGrupoMatheusAPI.Controllers
 
         [HttpPut]
         [Route("Atualizar conta")]
-        public void AtualizarConta([FromBody] Contas conta, string Pin = null)
+        public IActionResult AtualizarConta([FromBody] AtualizarContas conta, string Pin = null)
         {
-            if (!ModelState.IsValid) BadRequest(conta);
+            if (!ModelState.IsValid) return BadRequest(conta);
             //map
-            var contas = _mapper.Map<Contas>(conta);
-            _userService.AtualizarConta(contas, Pin);
+            var contas = _mapper.Map<AtualizarContas>(conta);
+            return Ok(_userService.AtualizarConta(conta, Pin));
         }
 
         [HttpDelete]

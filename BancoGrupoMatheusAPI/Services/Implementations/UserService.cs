@@ -149,10 +149,10 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
         }
 
 
-        public void AtualizarConta(Contas conta, string Pin = null)
+        public Contas AtualizarConta(AtualizarContas conta, string Pin = null)
         {
             // fnd userr
-            var contaToBeUpdated = _dbContext.Contas.Find(conta.Id);
+            var contaToBeUpdated = _dbContext.Contas.Find(conta.NumeroConta);
             if (contaToBeUpdated == null) throw new ApplicationException("Conta não encontrada");
             //so we have a match
             if (!string.IsNullOrWhiteSpace(conta.Email) && conta.Email != contaToBeUpdated.Email)
@@ -183,6 +183,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             _dbContext.Contas.Update(contaToBeUpdated);
             _dbContext.SaveChanges();
 
+
             DateTime Hoje = DateTime.Today.AddDays(0);
             Response response = new Response();
             response.ResponseCode = "00";
@@ -191,6 +192,8 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
             _dbContext.Response.Add(response);
             _dbContext.SaveChanges();
+
+            return contaToBeUpdated;
         }
 
         public Contas BuscarNumeroConta(string NumeroConta)

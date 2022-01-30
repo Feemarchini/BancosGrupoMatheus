@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace BancoGrupoMatheusAPI.Models
 {
-    public class UpdateContas
+    public class AtualizarContas
     {
         public string PrimeiroNome { get; set; }
+        public string NumeroConta { get; set; }
         public string Sobrenome { get; set; }
-        public string PhoneNumber { get; set; }
+        public string NumeroDeTelefone { get; set; }
         public string Email { get; set; }
         [RegularExpression(@"^[0-9]{4}$/", ErrorMessage = "")]
         public string Pin { get; set; }
