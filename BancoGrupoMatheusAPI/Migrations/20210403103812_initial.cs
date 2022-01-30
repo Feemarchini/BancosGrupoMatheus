@@ -23,7 +23,9 @@ namespace BancoGrupoMatheusAPI.Migrations
                     TipoDeConta = table.Column<string>(nullable: false),
                     Saldo = table.Column<string>(nullable: false),
                     PinStoredHash = table.Column<string>(nullable: true),
-                    PinStoredSalt = table.Column<string>(nullable: true)
+                    PinStoredSalt = table.Column<string>(nullable: true),
+                    CNPJ = table.Column<string>(nullable: true),
+                    CPF = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

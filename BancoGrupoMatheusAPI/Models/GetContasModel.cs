@@ -17,5 +17,7 @@ namespace BancoGrupoMatheusAPI.Models
         public DateTime DataCriacao { get; set; }
         public DateTime DataUltimaAtualizacao { get; set; }
         public string Saldo { get; set; }
+        public string CNPJ { get; set; }
+        public string CPF { get; set; }
     }
 }

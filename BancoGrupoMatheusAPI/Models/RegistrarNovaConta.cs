@@ -17,6 +17,8 @@ namespace BancoGrupoMatheusAPI.Models
         public DateTime DataCriacao { get; set; }
         public DateTime DataUltimaAtualizacao { get; set; }
         public string TipoDeConta { get; set; }
+        public string CNPJ { get; set; }
+        public string CPF { get; set; }
         //cummulative
         [Required]
         //[RegularExpression(@"^[0-9]{4}$")]

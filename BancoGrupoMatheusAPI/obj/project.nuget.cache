@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EcvBI3l3/ikBCnx/1KfUTm4hSJp7wbYtSE5LLgenGSoJ1unpD/z5cYE09wXP+Bdc99S6mWHw4wwk42V5vnkEBg==",
+  "dgSpecHash": "ZQV0T4kD1B8Hq6dZVL+bZPooGQRhSxq40pytuH3ucYCjAdoSjiIrOIqZ3O6VTgeaU6R524DBski1KYKe0/BTGw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\felip\\source\\repos\\BancoGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj",
+  "projectFilePath": "C:\\Users\\felip\\Source\\Repos\\BancosGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\felip\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\felip\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

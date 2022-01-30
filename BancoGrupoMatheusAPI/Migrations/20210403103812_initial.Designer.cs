@@ -61,6 +61,12 @@ namespace BancoGrupoMatheusAPI.Migrations
                     b.Property<byte[]>("Fatura")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("CNPJ")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("CPF")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("contas");

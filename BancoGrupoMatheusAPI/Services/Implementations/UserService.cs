@@ -62,6 +62,19 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             //is pin eequal to confirmmpin
             if (!Pin.Equals(ConfirmPin)) throw new ApplicationException("Pins não confere.");
 
+            if(conta.TipoDeConta.Contains("Corrente") || conta.TipoDeConta.Contains("Conta Corrente"))
+            {
+                if(conta.CPF == null)
+                throw new ApplicationException("O campo CPF deve ser obrigatório");
+            }
+
+            if (conta.TipoDeConta.Contains("Juridica") || conta.TipoDeConta.Contains("Pessoa Juridica") || conta.TipoDeConta.Contains("Jurídica") || conta.TipoDeConta.Contains("Pessoa Jurídica") ||
+                conta.TipoDeConta.Contains("Juridíca") || conta.TipoDeConta.Contains("Pessoa Juridíca"))
+            {
+                if (conta.CNPJ == null)
+                    throw new ApplicationException("O campo CNPJ deve ser obrigatório");
+            }
+
             //if validation passes
             string pinHash, pinSalt;
             CriarSenha(Pin, out pinHash, out pinSalt);

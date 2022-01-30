@@ -60,6 +60,12 @@ namespace BancoGrupoMatheusAPI.Migrations
 
                     b.Property<byte[]>("PinStoredSalt")
                         .HasColumnType("nvarchar(max)");
+                    
+                    b.Property<byte[]>("CNPJ")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("CPF")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

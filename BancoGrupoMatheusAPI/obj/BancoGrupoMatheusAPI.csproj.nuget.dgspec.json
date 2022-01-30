@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\felip\\source\\repos\\BancoGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj": {}
+    "C:\\Users\\felip\\Source\\Repos\\BancosGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\felip\\source\\repos\\BancoGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj": {
+    "C:\\Users\\felip\\Source\\Repos\\BancosGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\felip\\source\\repos\\BancoGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj",
+        "projectUniqueName": "C:\\Users\\felip\\Source\\Repos\\BancosGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj",
         "projectName": "BancoGrupoMatheusAPI",
-        "projectPath": "C:\\Users\\felip\\source\\repos\\BancoGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj",
+        "projectPath": "C:\\Users\\felip\\Source\\Repos\\BancosGrupoMatheus\\BancoGrupoMatheusAPI\\BancoGrupoMatheusAPI.csproj",
         "packagesPath": "C:\\Users\\felip\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\felip\\source\\repos\\BancoGrupoMatheus\\BancoGrupoMatheusAPI\\obj\\",
+        "outputPath": "C:\\Users\\felip\\Source\\Repos\\BancosGrupoMatheus\\BancoGrupoMatheusAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\felip\\AppData\\Roaming\\NuGet\\NuGet.Config",
