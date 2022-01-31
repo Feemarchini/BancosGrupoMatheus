@@ -114,7 +114,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
         }
 
-        public Response FazerTransacao(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransacao)
+        public Response FazerTransferencia(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin)
         {
             //3 contas or 2 are involved
 
@@ -372,33 +372,31 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
                 totalFatura = faturaFinal;
 
-                if ((_dbContext.Entry(faturaConta).State == Microsoft.EntityFrameworkCore.EntityState.Modified))
-                {
-                    //so there was an update in the context State
-                    Transacao.StatusTransacao = TranStatus.TransacaoEfetuadaComSucesso;
-                    response.ResponseCode = "00";
-                    response.ResponseMessage = "Compra no crédito efetuada com sucesso!";
-                    response.Data = Transacao.DataTransacao;
+                //so there was an update in the context State
+                Transacao.StatusTransacao = TranStatus.TransacaoEfetuadaComSucesso;
+                response.ResponseCode = "00";
+                response.ResponseMessage = "Compra no crédito efetuada com sucesso!";
+                response.Data = Transacao.DataTransacao;
 
-                    _dbContext.Response.Add(response);
-                    _dbContext.SaveChanges();
+                _dbContext.Response.Add(response);
+                _dbContext.SaveChanges();
 
-                }
-                else
-                {
-                    Transacao.StatusTransacao = TranStatus.FalhaNaTransacao;
-                    response.ResponseCode = "00";
-                    response.ResponseMessage = "Compra no crédito não efetuada!";
-                    response.Data = Transacao.DataTransacao;
 
-                    _dbContext.Response.Add(response);
-                    _dbContext.SaveChanges();
-                }
+
             }
             catch (Exception ex)
             {
 
                 _logger.LogError($"AN ERROR OCCURRED => MESSAGE: {ex.Message}");
+
+                Transacao.StatusTransacao = TranStatus.FalhaNaTransacao;
+                response.ResponseCode = "00";
+                response.ResponseMessage = "Compra no crédito não efetuada!";
+                response.Data = Transacao.DataTransacao;
+
+                _dbContext.Response.Add(response);
+                _dbContext.SaveChanges();
+
             }
 
             var faturaInicial = _dbContext.Contas.Where(x => x.NumeroConta == NumeroConta).SingleOrDefault();

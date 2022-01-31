@@ -30,12 +30,12 @@ namespace BancoGrupoMatheusAPI.Controllers
             return Ok(_transactionService.Depositar(NumeroConta, Valor, TransactionPin, OrigemTransacao, DestinoTransacao));
         }
         [HttpPost]
-        [Route("Fazer uma Transacao")]
-        public IActionResult MakeFundsTransacao(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin, string OrigemDestino, string DestinoTransacao)
+        [Route("Fazer uma Transferencia")]
+        public IActionResult FazerTransferencia(string ContaOrigem, string ContaDestino, decimal Valor, string TransactionPin)
         {
             if (ContaOrigem.Equals(ContaDestino)) return BadRequest("Você não pode realizar uma transferência para você mesmo");
 
-            return Ok(_transactionService.FazerTransacao(ContaOrigem, ContaDestino, Valor, TransactionPin, OrigemDestino, DestinoTransacao));
+            return Ok(_transactionService.FazerTransferencia(ContaOrigem, ContaDestino, Valor, TransactionPin));
         }
 
         [HttpPost]
