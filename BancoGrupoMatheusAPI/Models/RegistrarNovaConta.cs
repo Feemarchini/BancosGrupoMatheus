@@ -18,6 +18,7 @@ namespace BancoGrupoMatheusAPI.Models
         public string TipoDeConta { get; set; }
         public string CNPJ { get; set; }
         public string CPF { get; set; }
+        public int NumeroConta { get; set; }
         //cummulative
         [Required]
         //[RegularExpression(@"^[0-9]{4}$")]

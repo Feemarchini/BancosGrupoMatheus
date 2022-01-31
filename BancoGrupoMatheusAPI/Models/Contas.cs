@@ -31,6 +31,7 @@ namespace BancoGrupoMatheusAPI.Models
         public string PinStoredHash { get; set; }
 
         public string PinStoredSalt { get; set; }
+        public string Pin { get; set; }
 
         public string CNPJ { get; set; }
 
@@ -39,7 +40,8 @@ namespace BancoGrupoMatheusAPI.Models
         public string TipoDeConta { get; set; }
 
         public string NumeroDeTelefone { get; set; }
-        public string Fatura { get; set; }
+        
+        public string Fatura { get; }
 
 
         Random rand = new Random();

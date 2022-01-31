@@ -33,21 +33,18 @@ namespace BancoGrupoMatheusAPI.Controllers
 
         [HttpPut]
         [Route("Atualizar conta")]
-        public IActionResult AtualizarConta([FromBody] AtualizarContas conta, string Pin = null)
+        public IActionResult AtualizarConta(string primeiroNome, string Sobrenome, string Email, string numeroConta, DateTime dataDeCriacao, DateTime dataAtualizacao, string Pin, string cnpj, string cpf, string tipoDeConta, string numeroDeTelefone)
         {
-            if (!ModelState.IsValid) return BadRequest(conta);
-            //map
-            var contas = _mapper.Map<AtualizarContas>(conta);
-            return Ok(_userService.AtualizarConta(conta, Pin));
+            return Ok(_userService.AtualizarConta(primeiroNome, Sobrenome, Email, numeroConta, dataDeCriacao, dataAtualizacao, Pin, cnpj, cpf, tipoDeConta, numeroDeTelefone));
         }
 
         [HttpDelete]
         [Route("Deletar Conta")]
-        public IActionResult DeletarConta(int Id)
+        public IActionResult DeletarConta(string NumeroConta, string Pin)
         {
-            if (!ModelState.IsValid) return BadRequest(Id);
+            if (!ModelState.IsValid) return BadRequest(NumeroConta);
             //map
-            return Ok(_userService.DeletarConta(Id));
+            return Ok(_userService.DeletarConta(NumeroConta, Pin));
         }
 
 

@@ -110,16 +110,20 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             }
         }
 
-        public Response DeletarConta(int Id)
+        public Contas DeletarConta(string NumeroConta, string Pin)
         {
             Response response = new Response();
 
-            var conta = _dbContext.Contas.Find(Id);
+            var conta = _dbContext.Contas.Where( x => x.NumeroConta == NumeroConta).SingleOrDefault();
             if (conta != null)
             {
                 _dbContext.Contas.Remove(conta);
 
                 _dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Conta não encontrada!");
             }
             DateTime Hoje = DateTime.Today.AddDays(0);
 
@@ -130,7 +134,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             _dbContext.Response.Add(response);
             _dbContext.SaveChanges();
 
-            return response;
+            return conta;
         }
 
         public IEnumerable<Contas> BuscarTodasAsContas()
@@ -149,24 +153,24 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
         }
 
 
-        public Contas AtualizarConta(AtualizarContas conta, string Pin = null)
+        public Response AtualizarConta(string primeiroNome, string Sobrenome,string Email, string numeroConta, DateTime dataDeCriacao, DateTime dataAtualizacao, string Pin , string cnpj, string cpf, string tipoDeConta, string numeroDeTelefone)
         {
             // fnd userr
-            var contaToBeUpdated = _dbContext.Contas.Find(conta.NumeroConta);
-            if (contaToBeUpdated == null) throw new ApplicationException("Conta não encontrada");
+            var contaAtualizada = _dbContext.Contas.Find(numeroConta);
+            if (contaAtualizada == null) throw new ApplicationException("Conta não encontrada");
             //so we have a match
-            if (!string.IsNullOrWhiteSpace(conta.Email) && conta.Email != contaToBeUpdated.Email)
+            if (!string.IsNullOrWhiteSpace(Email) && Email != contaAtualizada.Email)
             {
                 //throw error because email passeed doesn't matc wiith
-                if (_dbContext.Contas.Any(x => x.Email == conta.Email)) throw new ApplicationException("Email " + conta.Email + " já existente");
-                contaToBeUpdated.Email = conta.Email;
+                if (_dbContext.Contas.Any(x => x.Email == Email)) throw new ApplicationException("Email " + Email + " já existente");
+                contaAtualizada.Email = Email;
             }
 
-            if (!string.IsNullOrWhiteSpace(conta.NumeroDeTelefone) && conta.Email != contaToBeUpdated.NumeroDeTelefone)
+            if (!string.IsNullOrWhiteSpace(numeroDeTelefone) && Email != contaAtualizada.NumeroDeTelefone)
             {
                 //throw error because email passeed doesn't matc wiith
-                if (_dbContext.Contas.Any(x => x.NumeroDeTelefone == conta.NumeroDeTelefone)) throw new ApplicationException("NumeroDeTelefone " + conta.NumeroDeTelefone + " já existente");
-                contaToBeUpdated.NumeroDeTelefone = conta.NumeroDeTelefone;
+                if (_dbContext.Contas.Any(x => x.NumeroDeTelefone == numeroDeTelefone)) throw new ApplicationException("NumeroDeTelefone " + numeroDeTelefone + " já existente");
+                contaAtualizada.NumeroDeTelefone = numeroDeTelefone;
             }
 
 
@@ -175,14 +179,30 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 string pinHash, pinSalt;
                 CriarSenha(Pin, out pinHash, out pinSalt);
 
-                contaToBeUpdated.PinStoredHash = pinHash;
-                contaToBeUpdated.PinStoredSalt = pinSalt;
-
+                contaAtualizada.PinStoredHash = pinHash;
+                contaAtualizada.PinStoredSalt = pinSalt;
             }
 
-            _dbContext.Contas.Update(contaToBeUpdated);
+            _dbContext.Contas.Update(contaAtualizada);
             _dbContext.SaveChanges();
 
+
+            Contas conta = new Contas();
+            conta.PrimeiroNome = primeiroNome;
+            conta.NumeroConta = numeroConta;
+            conta.Email = Email;
+            conta.DataAtualizacao = dataAtualizacao;
+            conta.DataDeCriacao = dataDeCriacao;
+            conta.PinStoredHash = Pin;
+            conta.PinStoredSalt = Pin;
+            conta.CNPJ = cnpj;
+            conta.CPF = cpf;
+            conta.TipoDeConta = tipoDeConta;
+            conta.NumeroDeTelefone = numeroDeTelefone;
+
+
+            _dbContext.Contas.Add(conta);
+            _dbContext.SaveChanges();
 
             DateTime Hoje = DateTime.Today.AddDays(0);
             Response response = new Response();
@@ -193,7 +213,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             _dbContext.Response.Add(response);
             _dbContext.SaveChanges();
 
-            return contaToBeUpdated;
+            return response;
         }
 
         public Contas BuscarNumeroConta(string NumeroConta)
