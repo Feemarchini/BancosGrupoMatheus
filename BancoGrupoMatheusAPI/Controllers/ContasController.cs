@@ -33,9 +33,9 @@ namespace BancoGrupoMatheusAPI.Controllers
 
         [HttpPut]
         [Route("Atualizar conta")]
-        public IActionResult AtualizarConta(string primeiroNome, string Sobrenome, string Email, string numeroConta, DateTime dataDeCriacao, DateTime dataAtualizacao, string Pin, string cnpj, string cpf, string tipoDeConta, string numeroDeTelefone)
+        public IActionResult AtualizarConta(string primeiroNome, string Sobrenome, string Email, string numeroConta, string Pin, string cnpj, string cpf, string tipoDeConta, string numeroDeTelefone)
         {
-            return Ok(_userService.AtualizarConta(primeiroNome, Sobrenome, Email, numeroConta, dataDeCriacao, dataAtualizacao, Pin, cnpj, cpf, tipoDeConta, numeroDeTelefone));
+            return Ok(_userService.AtualizarConta(primeiroNome, Sobrenome, Email, numeroConta, Pin, cnpj, cpf, tipoDeConta, numeroDeTelefone));
         }
 
         [HttpDelete]

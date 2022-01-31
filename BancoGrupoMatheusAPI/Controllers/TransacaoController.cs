@@ -62,12 +62,12 @@ namespace BancoGrupoMatheusAPI.Controllers
 
         [HttpPost]
         [Route("Compra no Credito")]
-        public IActionResult CompraCredito(string NumeroConta, decimal Valor, string PinTransacao, string Fatura)
+        public IActionResult CompraCredito(string NumeroConta, decimal Valor, string PinTransacao)
         {
             //try check validity of NumeroConta
             if (!Regex.IsMatch(NumeroConta, @"^[0][1-9]\d{9}$|^[1-9]\d{9}$")) return BadRequest("Seu número de conta pode conter apenas 10 digitos");
 
-            return Ok(_transactionService.CompraCredito(NumeroConta, Valor, PinTransacao, Fatura));
+            return Ok(_transactionService.CompraCredito(NumeroConta, Valor, PinTransacao));
 
         }
 

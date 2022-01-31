@@ -16,8 +16,6 @@ namespace BancoGrupoMatheusAPI.DAL
         public DbSet<Response> Response { get; set; }
         public DbSet<Contas> Contas { get; set; }
         public DbSet<Transacoes> Transacoes { get; set; }
-        public DbSet<RegistrarNovaConta> RegistrarNovaConta { get; set; }
-        public DbSet<AtualizarContas> AtualizarContas { get; set; }
 
     }
 }

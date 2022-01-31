@@ -331,7 +331,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             return response;
         }
 
-        public Response CompraCredito(string NumeroConta, decimal Valor, string PinTransacao, string Fatura)
+        public Response CompraCredito(string NumeroConta, decimal Valor, string PinTransacao)
         {
             Response response = new Response();
             Contas faturaConta; //individual
@@ -348,7 +348,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
 
                 faturaConta = _userService.BuscarNumeroConta(NumeroConta);
 
-                Fatura = faturaConta.Fatura;
+                var Fatura = faturaConta.Fatura;
 
                 string faturaFinal = Fatura + Valor;
 
