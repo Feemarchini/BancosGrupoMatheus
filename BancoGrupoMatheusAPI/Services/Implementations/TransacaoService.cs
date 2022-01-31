@@ -58,11 +58,11 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                 var saldoDestino = Convert.ToDecimal(contaDestino.Saldo);
                 var saldoDestinoDecimal = Convert.ToDecimal(saldoDestino);
 
-                saldoDecimal -= Valor;
-                saldoDestinoDecimal += Valor;
+                var saldoFinal = saldoDecimal - Valor;
+                var saldoDestinoFinal = saldoDestinoDecimal + Valor;
 
-                conta.Saldo = saldoDecimal.ToString();
-                contaDestino.Saldo = saldoDestinoDecimal.ToString();
+                conta.Saldo = saldoFinal.ToString();
+                contaDestino.Saldo = saldoDestinoFinal.ToString();
 
                 if ((_dbContext.Entry(conta).State == Microsoft.EntityFrameworkCore.EntityState.Modified) && (_dbContext.Entry(contaDestino).State == Microsoft.EntityFrameworkCore.EntityState.Modified))
                 {
@@ -72,6 +72,8 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                     response.ResponseMessage = "Transacao realizada com sucesso!";
                     response.Data = transacoes.DataTransacao;
 
+                    _dbContext.Response.Add(response);
+                    _dbContext.SaveChanges();
                 }
                 else
                 {
@@ -79,6 +81,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Transacao falhou!";
                     response.Data = transacoes.DataTransacao;
+
+                    _dbContext.Response.Add(response);
+                    _dbContext.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -156,6 +161,10 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                     response.ResponseMessage = "Transferência realizada com sucesso!";
                     response.Data = Transacao.DataTransacao;
 
+
+                    _dbContext.Response.Add(response);
+                    _dbContext.SaveChanges();
+
                 }
                 else
                 {
@@ -163,6 +172,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Transferência não realizada!";
                     response.Data = Transacao.DataTransacao;
+
+                    _dbContext.Response.Add(response);
+                    _dbContext.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -226,6 +238,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                     response.ResponseMessage = "Saque efetuado com sucesso!";
                     response.Data = Transacao.DataTransacao;
 
+                    _dbContext.Response.Add(response);
+                    _dbContext.SaveChanges();
+
                 }
                 else
                 {
@@ -233,6 +248,9 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
                     response.ResponseCode = "00";
                     response.ResponseMessage = "Saque não efetuado!";
                     response.Data = Transacao.DataTransacao;
+
+                    _dbContext.Response.Add(response);
+                    _dbContext.SaveChanges();
                 }
             }
             catch (Exception ex)

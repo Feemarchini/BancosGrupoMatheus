@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using NPOI.SS.Formula.Functions;
 
 namespace BancoGrupoMatheusAPI.Services.Implementations
 {
@@ -30,7 +31,7 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             if (string.IsNullOrEmpty(NumeroConta) || string.IsNullOrEmpty(Pin))
                 return null;
 
-            var conta = _dbContext.Contas.SingleOrDefault(x => x.NumeroConta == NumeroConta);
+            var conta = _dbContext.Contas.Where(x => x.NumeroConta == NumeroConta).FirstOrDefault();
             //is conta null
             if (conta == null)
                 return null;
@@ -81,17 +82,25 @@ namespace BancoGrupoMatheusAPI.Services.Implementations
             //if validation passes
             string pinHash, pinSalt;
             CriarSenha(Pin, out pinHash, out pinSalt);
+            string numeroConta = conta.NumeroConta;
 
             conta.PinStoredHash = pinHash;
             conta.PinStoredSalt = pinSalt;
 
+            conta.Saldo = "100000000000";
+
+            Random rnd = new Random();
+            conta.NumeroConta = Convert.ToString((long)Math.Floor(rnd.NextDouble() * 9_000_000_000L + 1_000_000_000L));
+
             _dbContext.Contas.Add(conta);
             _dbContext.SaveChanges();
+
+            DateTime Hoje = DateTime.Today.AddDays(0);
 
             Response response = new Response();
             response.ResponseCode = "00";
             response.ResponseMessage = "Conta criada com sucesso";
-            response.Data = conta.DataDeCriacao;
+            response.Data = Hoje;
 
             _dbContext.Response.Add(response);
             _dbContext.SaveChanges();

@@ -13,9 +13,9 @@ namespace BancoGrupoMatheusAPI.Models
         [Key]
         public int Id { get; set; }
 
-        public int TransacaoUniqueId { get; set; }
+        public string TransferenciaUniqueId { get; set; }
 
-        public DateTime MesTransacao { get; set; }
+        public string MesTransacao { get; set; }
 
         public TranStatus StatusTransacao { get; set; }
 
@@ -34,8 +34,11 @@ namespace BancoGrupoMatheusAPI.Models
         public string ValorTransacao { get; set; }
 
         public string SaldoTransacao { get; set; }
+
         public string Fatura { get; set; }
+
         public string TotalFatura { get; set; }
+
 
 
         public Transacoes()

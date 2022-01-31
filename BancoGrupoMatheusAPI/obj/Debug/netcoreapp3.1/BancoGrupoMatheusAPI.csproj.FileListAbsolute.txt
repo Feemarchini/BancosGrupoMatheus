@@ -143,3 +143,9 @@ C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\obj\Debug\ne
 C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\obj\Debug\netcoreapp3.1\BancoGrupoMatheusAPI.dll
 C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\obj\Debug\netcoreapp3.1\BancoGrupoMatheusAPI.pdb
 C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\obj\Debug\netcoreapp3.1\BancoGrupoMatheusAPI.genruntimeconfig.cache
+C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\bin\Debug\netcoreapp3.1\NPOI.OOXML.dll
+C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\bin\Debug\netcoreapp3.1\NPOI.OpenXml4Net.dll
+C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\bin\Debug\netcoreapp3.1\NPOI.OpenXmlFormats.dll
+C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\bin\Debug\netcoreapp3.1\NPOI.dll
+C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\felip\Source\Repos\BancosGrupoMatheus\BancoGrupoMatheusAPI\bin\Debug\netcoreapp3.1\ICSharpCode.SharpZipLib.dll
